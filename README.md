@@ -8,7 +8,7 @@ divided by leaves and counted as two bunches. A contour’s area limitation was 
 For navigation, the robot needs to know the path and motion to avoid obstacles and a localization method to know its initial and goal position. There are two ways for navigation map-based uses a map of the environment, and reactive uses sensors to get local information about the environment surrounding the robot. In this project, a move-based approach was responsible for using global and local cost maps and implementing path planners to reach the goal. In map-based navigation, the map gives global knowledge about the static obstacle in advance, and sensors produce local information. Cost and topological maps depend on the environment, so they must change when-
 ever the environment changes. In real-world cases, in some situations, a 3D cost map may be required. <br/>
 In this project, the fake-localisation package was used to provide perfect localisation. In the real world, the robot can find its initial position by Adaptive Monte-Carlo Localisation (AMCL) algorithm. It uses sample locations in the map and current scan information matching each sample. After a while, it can find the correct position and the map fitted by the environment correctly.
-* creating a topological map <br/>
+* creating a topological map (GOTO [map folder link](https://github.com/Afsaneh-Karami/my_package/blob/main/maps/foo3.tmap2)) <br />
 A topological map is mainly used for complex and large
 environments. The robot must react differently in each zone,
 so the path-planning method needs a graph-like map. In this
@@ -21,55 +21,21 @@ clicking on each point, and the robot moves toward it while
 following the edge and its direction (follow the edge as far
 as there is no dynamic obstacle). I use a topological map that
 matches all words.
-* move-based <br/>
-* Move-base package is responsible for moving the robot
-to the destination based on two motion planners: the global
-and local path planners (each planner uses its own cost or
-occupancy map). The global one uses a search algorithm to
-find a suitable path free of static obstacles to the goal. The
-local path planner executes the planned trajectory while avoiding dynamic obstacles. The local path planner produces the
-velocity command, and its modified parameters are max and
-min velocity and acceleration. It has two built-in approaches,
-dynamic window approach (DWA) and Trajectory Rollout.
-In both algorithms, three component contributes to producing
-suitable velocity, which is the target heading (distance to the
-goal), clearance (avoiding obstacle), and velocity (supports fast
-movements) [1]. A DWA simulates one step of movement
-to score the function, and trajectory rollout goes for more
-steps. So, in the trajectory rollout, paths that lead to the
-obstacle are ignored. In fact, in the scoring function, more
-steps make the scale of avoiding obstacles higher compared
-to the goal distance scale. Based on the narrow rows in this
-project, DWA was considered to decrease obstacle avoidance
-sensitivity and go faster toward the destination. There are three
-built-in functions carrot-planner, navfn (Dijkstra AL), and
-global-planner(A* AL) for global path planner. A* algorithm
-considers both the cost map and distance to the goal. The
-Dijkstra considers just cost value. In comparison, A* pays
-more attention to the path leading to the goal, and Dijkstra can
-better avoid several obstacles. In this project, both algorithms
-were tested, and Dijkstra was selected because it goes to
-discover the cost value for a wider space. It could better find
-its path when there were several adjacent obstacles, although
-its computation time is higher. So, the probability of getting
-stuck is lower. Two recovery behaviour, conservative-reset and
-aggressive-reset, were activated in the planner yaml file as a
-solution when the robot gets stuck and put the value of 1.1
-for conservative-reset. This value should be near the max of
-inflation-radius*cost-scaling-factor of local. Therefore it can
-be activated before going so close to obstacles and getting
-stuck with the cost map. The robot should have the ability to
+* move-based (GOTO [config folder link](https://github.com/Afsaneh-Karami/my_package/tree/main/config)) <br />
+Move-base package is responsible for moving the robot to the destination based on two motion planners: the global and local path planners (each planner uses its own cost or occupancy map). The global one uses a search algorithm to find a suitable path free of static obstacles to the goal. The local path planner executes the planned trajectory while avoiding dynamic obstacles. The local path planner produces the velocity command, and its modified parameters are max and
+min velocity and acceleration. It has built-in approaches, dynamic window approach (DWA). In this algorithms, three component contributes to producing suitable velocity, which is the target heading (distance to the goal), clearance (avoiding obstacle), and velocity (supports fast movements). There are three built-in functions carrot-planner, navfn (Dijkstra AL), and global-planner(A* AL) for global path planner. A* algorithm considers both the cost map and distance to the goal. The Dijkstra considers just cost value. In comparison, A* pays more attention to the path leading to the goal, and Dijkstra can better avoid several obstacles. In this project, both algorithms were tested, and Dijkstra was selected because it goes to discover the cost value for a wider space. It could better find its path when there were several adjacent obstacles, although
+its computation time is higher. So, the probability of getting stuck is lower. Two recovery behaviour, conservative-reset and aggressive-reset, were activated in the planner yaml file as a solution when the robot gets stuck and put the value of 1.1 for conservative-reset. This value should be near the max of inflation-radius*cost-scaling-factor of local. Therefore it can be activated before going so close to obstacles and getting stuck with the cost map. The robot should have the ability to
 rotate for recovery behaviour.
 To be able to change the parameter of the move-base package,
 this package was run from the local folder. Two important
-parameters that indicate the value of the cost map are inflationradius and cost-scaling-factor, which are related to obstacle
+parameters that indicate the value of the cost map are inflation-radius and cost-scaling-factor, which are related to obstacle
 avoidance. In the simulation environment, the rows that the
 robot can cross are narrow, and, in some worlds, the trees
 grew a lot. Therefore, these parameters must be low to allow
 the robot to move through this environment. Even if the
 parameters were decreased to the lowest value, the robot can
 hardly move in the world vineyard stages 3 and 4 and mostly
-get stuck. The value of the inflation-radius and cost-scalingfactor for local are 0.67 and 1.5, respectively. The values for
+get stuck. The value of the inflation-radius and cost-scaling-factor for local are 0.67 and 1.5, respectively. The values for
 the global cost map are 0.4 and 2 for the inflation-radius and
 cost-scaling-factor, respectively. The local parameter should be
 higher than the global because the global cost map is on top
