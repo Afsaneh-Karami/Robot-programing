@@ -46,7 +46,7 @@ should be able to move and turn. The obstacle-range is 1.5 m,
 the maximum value that an obstacle can consider in the cost
 map (1.5 m from the robot), and the raytrace-range is 5.5 m,
 which is the distance that sensor can see the obstacles.
-* image processing with OpenCV (GOTO [src folder link]([https://github.com/Afsaneh-Karami/my_package/tree/main/config](https://github.com/Afsaneh-Karami/my_package/tree/main/src))) <br />
+* image processing with OpenCV (GOTO [src folder link]((https://github.com/Afsaneh-Karami/my_package/tree/main/src))) <br />
 1. detection of grapes’ bunches
 2. The camera for RGB images has a field of view (FOV)
 of 84.1 (horizontal) and 54 (vertical) degrees and an image
