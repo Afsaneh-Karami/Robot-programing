@@ -5,8 +5,7 @@ solutions for them. The estimation showed that the double counting was about 20-
 divided by leaves and counted as two bunches. A contour’s area limitation was applied to solve it, but it was impossible to increase it so much. It is related to the distance between the camera and the grapes, and a high value may result in missing some grapes if the distance increases. Another significant aspect of an agricultural robot is its navigation process. The robot should find its path to the goal while avoiding obstacles.<br />
 <img width="303" alt="1" src="https://user-images.githubusercontent.com/78735911/217668371-afdc851b-04f8-43a2-90f5-5eae37895d87.png"> <br />
 ## Navigation section:<br />
-For navigation, the robot needs to know the path and motion to avoid obstacles and a localization method to know its initial and goal position. There are two ways for navigation map-based uses a map of the environment, and reactive uses sensors to get local information about the environment surrounding the robot. In this project, a move-based approach was responsible for using global and local cost maps and implementing path planners to reach the goal. In map-based navigation, the map gives global knowledge about the static obstacle in advance, and sensors produce local information. Cost and topological maps depend on the environment, so they must change when-
-ever the environment changes. In real-world cases, in some situations, a 3D cost map may be required. <br/>
+For navigation, the robot needs to know the path and motion to avoid obstacles and a localization method to know its initial and goal position. There are two ways for navigation map-based uses a map of the environment, and reactive uses sensors to get local information about the environment surrounding the robot. In this project, a move-based approach was responsible for using global and local cost maps and implementing path planners to reach the goal. In map-based navigation, the map gives global knowledge about the static obstacle in advance, and sensors produce local information. Cost and topological maps depend on the environment, so they must change when-ever the environment changes. In real-world cases, in some situations, a 3D cost map may be required. <br/>
 In this project, the fake-localisation package was used to provide perfect localisation. In the real world, the robot can find its initial position by Adaptive Monte-Carlo Localisation (AMCL) algorithm. It uses sample locations in the map and current scan information matching each sample. After a while, it can find the correct position and the map fitted by the environment correctly.
 * creating a topological map (GOTO [map folder link](https://github.com/Afsaneh-Karami/my_package/blob/main/maps/foo3.tmap2)) <br />
 A topological map is mainly used for complex and large
@@ -45,8 +44,8 @@ the robot’s size and free space in the environment. The robot
 should be able to move and turn. The obstacle-range is 1.5 m,
 the maximum value that an obstacle can consider in the cost
 map (1.5 m from the robot), and the raytrace-range is 5.5 m,
-which is the distance that sensor can see the obstacles.
-* image processing with OpenCV (GOTO [src folder link]((https://github.com/Afsaneh-Karami/my_package/tree/main/src))) <br />
+which is the distance that sensor can see the obstacles. 
+## Image processing with OpenCV (GOTO [src folder link](https://github.com/Afsaneh-Karami/my_package/tree/main/src)) <br />
 1. detection of grapes’ bunches
 2. The camera for RGB images has a field of view (FOV)
 of 84.1 (horizontal) and 54 (vertical) degrees and an image
@@ -171,7 +170,16 @@ In a real-world case, adding unique features to avoid double
 counting, like shape, the number of grapes, and the average
 colour in the contour pixel, improve the accuracy of counting. Also, the ground is not flat and increases the noise in
 coordinate transforming. The slippage of wheels should be considered too.
+## Evaluation:
+To evaluate the effect of each filter in avoiding double
+counting, some tests were done, and at each step, ignoring one
+of filtering. According to the result of table 1, contributions to
+avoiding double counting for area, frame, and tolerance filtration are 47.5, 62, and 47 percent respectively. The performance
+of the code was checked when the robot passed through a row
+twice. The result was presented in table 2, and it had 20-23
+percent double counting.<br/>
 
+<img width="265" alt="Screenshot 2023-02-08 233926" src="https://user-images.githubusercontent.com/78735911/217676550-8eea1e2c-4be0-4c33-a805-58ef7ad93a13.png">
 
 
 
