@@ -166,18 +166,11 @@ this value. It is not counted if it belongs to the previous frame,
 which depends on the movement direction.<br/>
 ![fig1](https://user-images.githubusercontent.com/78735911/217675669-6af64374-52d7-4235-8efb-c8f3a0a51af3.png)
 
-In a real-world case, adding unique features to avoid double
-counting, like shape, the number of grapes, and the average
+In a real-world case, adding unique features to avoid double counting, like shape, the number of grapes, and the average
 colour in the contour pixel, improve the accuracy of counting. Also, the ground is not flat and increases the noise in
 coordinate transforming. The slippage of wheels should be considered too.
 ## Evaluation:
-To evaluate the effect of each filter in avoiding double
-counting, some tests were done, and at each step, ignoring one
-of filtering. According to the result of table 1, contributions to
-avoiding double counting for area, frame, and tolerance filtration are 47.5, 62, and 47 percent respectively. The performance
-of the code was checked when the robot passed through a row
-twice. The result was presented in table 2, and it had 20-23
-percent double counting.<br/>
+To evaluate the effect of each filter in avoiding double counting, some tests were done, and at each step, ignoring one of filtering. According to the result of table 1, contributions to avoiding double counting for area, frame, and tolerance filtration are 47.5, 62, and 47 percent respectively. The performance of the code was checked when the robot passed through a row twice. The result was presented in table 2, and it had 20-23 percent double counting.<br/>
 
 <img width="265" alt="Screenshot 2023-02-08 233926" src="https://user-images.githubusercontent.com/78735911/217676550-8eea1e2c-4be0-4c33-a805-58ef7ad93a13.png">
 
