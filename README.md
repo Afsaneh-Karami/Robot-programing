@@ -1,17 +1,20 @@
 # Grape detection and counting using image processing:<br />
-<div style="text-align:justify">
+<p align="justify">
 In this project, the robot moves around the rows in the vineyard and takes photos with two cameras (left and right). The images were processed to find the number of grapes bunches while avoiding double counting, which was the most challenging part of this project. So, it needs to find the reasons for double counting and brings
 solutions for them. The estimation showed that the double counting was about 20-23 perenct when the robot passed through a row twice. Some of it was related to the grapes
 divided by leaves and counted as two bunches. A contour’s area limitation was applied to solve it, but it was impossible to increase it so much. It is related to the distance between the camera and the grapes, and a high value may result in missing some grapes if the distance increases. Another significant aspect of an agricultural robot is its navigation process. The robot should find its path to the goal while avoiding obstacles.
-</div>
+</p>
 <p align="center">
 <img width="303" alt="1" src="https://user-images.githubusercontent.com/78735911/217668371-afdc851b-04f8-43a2-90f5-5eae37895d87.png"> <br />
 </p><br/>
 
 ## Navigation section:<br />
+<p align="justify">
 For navigation, the robot needs to know the path and motion to avoid obstacles and a localization method to know its initial and goal position. There are two ways for navigation map-based uses a map of the environment, and reactive uses sensors to get local information about the environment surrounding the robot. In this project, a move-based approach was responsible for using global and local cost maps and implementing path planners to reach the goal. In map-based navigation, the map gives global knowledge about the static obstacle in advance, and sensors produce local information. Cost and topological maps depend on the environment, so they must change when-ever the environment changes. In real-world cases, in some situations, a 3D cost map may be required. <br/>
 In this project, the fake-localisation package was used to provide perfect localisation. In the real world, the robot can find its initial position by Adaptive Monte-Carlo Localisation (AMCL) algorithm. It uses sample locations in the map and current scan information matching each sample. After a while, it can find the correct position and the map fitted by the environment correctly.
+ </p>
 * creating a topological map (GOTO [map folder link](https://github.com/Afsaneh-Karami/my_package/blob/main/maps/foo3.tmap2)) <br />
+<p align="justify">
 A topological map is mainly used for complex and large
 environments. The robot must react differently in each zone,
 so the path-planning method needs a graph-like map. In this
@@ -24,12 +27,14 @@ clicking on each point, and the robot moves toward it while
 following the edge and its direction (follow the edge as far
 as there is no dynamic obstacle). I use a topological map that
 matches all words.<br/>
+</p>
 <p align="center">
 <img width="673" alt="Screenshot 2023-02-09 000653" src="https://user-images.githubusercontent.com/78735911/217680260-6198e930-0851-47d0-84a0-98a37d447362.png">
 
 </p><br/>
 
 * move-based (GOTO [config folder link](https://github.com/Afsaneh-Karami/my_package/tree/main/config)) <br />
+<p align="justify">
 Move-base package is responsible for moving the robot to the destination based on two motion planners: the global and local path planners (each planner uses its own cost or occupancy map). The global one uses a search algorithm to find a suitable path free of static obstacles to the goal. The local path planner executes the planned trajectory while avoiding dynamic obstacles. The local path planner produces the velocity command, and its modified parameters are max and
 min velocity and acceleration. It has built-in approaches, dynamic window approach (DWA). In this algorithms, three component contributes to producing suitable velocity, which is the target heading (distance to the goal), clearance (avoiding obstacle), and velocity (supports fast movements). There are three built-in functions carrot-planner, navfn (Dijkstra AL), and global-planner(A* AL) for global path planner. A* algorithm considers both the cost map and distance to the goal. The Dijkstra considers just cost value. In comparison, A* pays more attention to the path leading to the goal, and Dijkstra can better avoid several obstacles. In this project, both algorithms were tested, and Dijkstra was selected because it goes to discover the cost value for a wider space. It could better find its path when there were several adjacent obstacles, although its computation time is higher. So, the probability of getting stuck is lower. Two recovery behaviour, conservative-reset and aggressive-reset, were activated in the planner yaml file as a solution when the robot gets stuck and put the value of 1.1 for conservative-reset. This value should be near the max of inflation-radius*cost-scaling-factor of local. Therefore it can be activated before going so close to obstacles and getting stuck with the cost map. The robot should have the ability to
 rotate for recovery behaviour.
@@ -89,11 +94,13 @@ the kernel size 8. It was determined by trial and error. In some
 simulated worlds, grapes are green which needs to change the
 parameters of the mask function. In real-world cases, more
 masks are needed for different kinds and colours of grapes.<br/>
+ </p>
 <p align="center">
 <img width="736" alt="Screenshot 2023-02-09 000417" src="https://user-images.githubusercontent.com/78735911/217679954-cecb64ee-2504-4483-be19-72e8a80b03e4.png">
   </p></p><br/>
   
 2. avoid double counting <br/>
+<p align="justify">
 After creating contours and finding their properties, like
 centre point, radius and 3D coordinate, they were processed to
 avoid double counting. Several filters were applied, including
@@ -174,15 +181,17 @@ image’s cells at each frame (Xf1 and Xf2), and in the new
 frame, the X coordinate of the detected bunch is compared by
 this value. It is not counted if it belongs to the previous frame,
 which depends on the movement direction.<br/>
+  </p>
 <p align="center">
 <img width="335" alt="Screenshot 2023-02-09 000224" src="https://user-images.githubusercontent.com/78735911/217679542-7c36ed54-5b7a-497f-88c7-aec499e8d338.png">
 </p><br/>
-
+<p align="justify">
 In a real-world case, adding unique features to avoid double counting, like shape, the number of grapes, and the average
 colour in the contour pixel, improve the accuracy of counting. Also, the ground is not flat and increases the noise in
 coordinate transforming. The slippage of wheels should be considered too.
 ## Evaluation:
 To evaluate the effect of each filter in avoiding double counting, some tests were done, and at each step, ignoring one of filtering. According to the result of table 1, contributions to avoiding double counting for area, frame, and tolerance filtration are 47.5, 62, and 47 percent respectively. The performance of the code was checked when the robot passed through a row twice. The result was presented in table 2, and it had 20-23 percent double counting.<br/>
+</p>
 <p align="center">
 <img width="265" alt="Screenshot 2023-02-08 233926" src="https://user-images.githubusercontent.com/78735911/217676550-8eea1e2c-4be0-4c33-a805-58ef7ad93a13.png"><br/> 
 </p>
