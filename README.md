@@ -13,7 +13,9 @@ divided by leaves and counted as two bunches. A contour’s area limitation was 
 For navigation, the robot needs to know the path and motion to avoid obstacles and a localization method to know its initial and goal position. There are two ways for navigation map-based uses a map of the environment, and reactive uses sensors to get local information about the environment surrounding the robot. In this project, a move-based approach was responsible for using global and local cost maps and implementing path planners to reach the goal. In map-based navigation, the map gives global knowledge about the static obstacle in advance, and sensors produce local information. Cost and topological maps depend on the environment, so they must change when-ever the environment changes. In real-world cases, in some situations, a 3D cost map may be required. <br/>
 In this project, the fake-localisation package was used to provide perfect localisation. In the real world, the robot can find its initial position by Adaptive Monte-Carlo Localisation (AMCL) algorithm. It uses sample locations in the map and current scan information matching each sample. After a while, it can find the correct position and the map fitted by the environment correctly.
  </p>
+ 
 * creating a topological map (GOTO [map folder link](https://github.com/Afsaneh-Karami/my_package/blob/main/maps/foo3.tmap2)) <br />
+
 <p align="justify">
 A topological map is mainly used for complex and large
 environments. The robot must react differently in each zone,
@@ -56,7 +58,8 @@ the robot’s size and free space in the environment. The robot
 should be able to move and turn. The obstacle-range is 1.5 m,
 the maximum value that an obstacle can consider in the cost
 map (1.5 m from the robot), and the raytrace-range is 5.5 m,
-which is the distance that sensor can see the obstacles. 
+which is the distance that sensor can see the obstacles. </br>
+
 ## Image processing with OpenCV (GOTO [src folder link](https://github.com/Afsaneh-Karami/my_package/tree/main/src)) <br />
 1. detection of grapes’ bunches
 2. The camera for RGB images has a field of view (FOV)
